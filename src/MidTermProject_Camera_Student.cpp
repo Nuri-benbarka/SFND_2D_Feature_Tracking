@@ -80,10 +80,7 @@ int main(int argc, const char *argv[])
         //// TASK MP.2 -> add the following keypoint detectors in file matching2D.cpp and enable string-based selection based on detectorType
         //// -> HARRIS, FAST, BRISK, ORB, AKAZE, SIFT
 
-        if (detectorType == "SHITOMASI" || detectorType == "HARRIS")
-            detKeypointsShiTomasi(keypoints, imgGray, bVis, detectorType == "HARRIS");
-        else
-            detKeypointsModern(keypoints,imgGray, detectorType, bVis);
+
 
         //// EOF STUDENT ASSIGNMENT
 
@@ -95,7 +92,18 @@ int main(int argc, const char *argv[])
         cv::Rect vehicleRect(535, 180, 180, 150);
         if (bFocusOnVehicle)
         {
-            // ...
+            cv::Mat mask(imgGray.rows, imgGray.cols, CV_8UC1, cv::Scalar(0));
+            mask(vehicleRect) = 1;
+            if (detectorType == "SHITOMASI" || detectorType == "HARRIS")
+                detKeypointsShiTomasi(keypoints, imgGray, bVis, detectorType == "HARRIS", mask);
+            else
+                detKeypointsModern(keypoints,imgGray, detectorType, bVis, mask);
+
+        } else{
+            if (detectorType == "SHITOMASI" || detectorType == "HARRIS")
+                detKeypointsShiTomasi(keypoints, imgGray, bVis, detectorType == "HARRIS");
+            else
+                detKeypointsModern(keypoints,imgGray, detectorType, bVis);
         }
 
         //// EOF STUDENT ASSIGNMENT
