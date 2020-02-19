@@ -74,7 +74,7 @@ int main(int argc, const char *argv[])
 
         // extract 2D keypoints from current image
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
-        string detectorType = "SIFT"; //These methods can be selected:  {SHITOMASI, HARRIS, FAST, BRISK, ORB, AKAZE, SIFT}
+        string detectorType = "ORB"; //These methods can be selected:  {SHITOMASI, HARRIS, FAST, BRISK, ORB, AKAZE, SIFT}
 
         //// STUDENT ASSIGNMENT
         //// TASK MP.2 -> add the following keypoint detectors in file matching2D.cpp and enable string-based selection based on detectorType
@@ -127,7 +127,7 @@ int main(int argc, const char *argv[])
         //// -> BRIEF, ORB, FREAK, AKAZE, SIFT
 
         cv::Mat descriptors;
-        string descriptorType = "SIFT"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
+        string descriptorType = "ORB"; // BINARY { BRISK, BRIEF, ORB, FREAK, AKAZE }  HOG {SIFT}
         descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType);
         //// EOF STUDENT ASSIGNMENT
 
@@ -142,8 +142,8 @@ int main(int argc, const char *argv[])
             /* MATCH KEYPOINT DESCRIPTORS */
 
             vector<cv::DMatch> matches;
-            string matcherType = "MAT_FLANN";        // MAT_BF, MAT_FLANN
-            string descriptorType = "DES_HOG";     // DES_BINARY, DES_HOG
+            string matcherType = "MAT_BF";        // MAT_BF, MAT_FLANN
+            string descriptorType = "DES_BINARY";     // DES_BINARY, DES_HOG
             string selectorType = "SEL_KNN";       // SEL_NN, SEL_KNN
 
             //// STUDENT ASSIGNMENT
@@ -154,12 +154,13 @@ int main(int argc, const char *argv[])
                              (dataBuffer.end() - 2)->descriptors, (dataBuffer.end() - 1)->descriptors,
                              matches, descriptorType, matcherType, selectorType);
 
+
             //// EOF STUDENT ASSIGNMENT
 
             // store matches in current data frame
             (dataBuffer.end() - 1)->kptMatches = matches;
 
-            cout << "#4 : MATCH KEYPOINT DESCRIPTORS done" << endl;
+            cout << "#4 : MATCH KEYPOINT DESCRIPTORS done" << endl << endl << endl;
 
             // visualize matches between current and previous image
             bVis = true;
