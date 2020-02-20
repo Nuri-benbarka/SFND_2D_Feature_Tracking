@@ -32,3 +32,26 @@ See the classroom instruction and code comments for more details on each of thes
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./2D_feature_tracking`.
+
+## TOP 3 keypoint detector/descriptor combinations
+
+1. When the main criteria is speed and number of feature points, FAST/BRIEF is the best combination.
+
+FAST/BRIEF,   
+Average time = 2.8 + 0.8 = 3.6 mS, 
+Average number of matched points = 314,
+Average percentage of inleirs = 77%
+
+2. When the main criteria is percentage of inleir points, HARRIS/BRIEF is the best.
+
+HARRIS/BRIEF,   
+Average time =  11.46 + 0.4 = 11.86 mS, 
+Average number of matched points = 53,
+Average percentage of inleirs = 91.5%
+
+3. When the main criteria is a combination of number of matched points and percentage of inleir points, AKAZE/SIFT is the best.
+
+AKAZE/SIFT,
+Average time =  7.46 + 11 = 18.46 mS, 
+Average number of matched points = 144,
+Average percentage of inleirs = 87%
